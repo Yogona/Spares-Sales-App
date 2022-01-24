@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "609612657783",
+    "firebase_url": "https://vitality-hygiene-product.firebaseio.com",
+    "project_id": "vitality-hygiene-product",
+    "storage_bucket": "vitality-hygiene-product.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609612657783:android:5974749224b8a77384c272",
+        "android_client_info": {
+          "package_name": "com.vitalityhygieneproducts.vitality_hygiene_products"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609612657783-05gck532m2u16skkttdn4c75hiaaebsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyzoDtD2g7j_uh_D3k5q4i0BTl9iWeYcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609612657783-05gck532m2u16skkttdn4c75hiaaebsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

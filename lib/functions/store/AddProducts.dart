@@ -61,12 +61,18 @@ class _AddProductsState extends State<AddProducts> {
           SizedBox(height: 20,),
 
           //Heading
-          Center(
-            child: Text(
-              "Add Product",
-              style: TextStyle(
-                color: _appColors.getFontColor(),
-                fontSize: FormSpecs.formHeaderSize,
+          Container(
+            decoration: boxDecoration.copyWith(
+              color: _appColors.getBoxColor(),
+            ),
+            width: MediaQuery.of(context).size.width*fullWidth,
+            child: Center(
+              child: Text(
+                "Add Product",
+                style: TextStyle(
+                  color: _appColors.getFontColor(),
+                  fontSize: FormSpecs.formHeaderSize,
+                ),
               ),
             ),
           ),

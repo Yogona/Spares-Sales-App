@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
 import 'package:vitality_hygiene_products/custom_widgets/NoItemsFound.dart';
 import 'package:vitality_hygiene_products/custom_widgets/Options.dart';
+import 'package:vitality_hygiene_products/functions/settings/Password.dart';
 import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
@@ -14,44 +15,62 @@ import 'package:vitality_hygiene_products/shared/Futures.dart';
 import 'package:vitality_hygiene_products/shared/TaskSelection.dart';
 import 'package:vitality_hygiene_products/shared/General.dart';
 
-class AdminHome extends StatelessWidget {
-  final AppColors _appColors = AppColors();
-
+class AdminHome extends StatefulWidget{
+  //Navigations
   final Function toggleHomeToUsers;
   final Function toggleHomeToStore;
   final Function toggleHomeToPurchases;
   final Function toggleHomeToSales;
 
+  //Options
+  final Function togglePassword;
+
   AdminHome(
       {
+        //Navigations
         this.toggleHomeToUsers,
         this.toggleHomeToStore,
         this.toggleHomeToPurchases,
         this.toggleHomeToSales,
+
+        //Options
+        this.togglePassword
       }
-  );
+      );
+  @override
+  _AdminHomeState createState() => _AdminHomeState();
+}
+
+class _AdminHomeState extends State<AdminHome> {
+  final AppColors _appColors = AppColors();
+  //bool _isPasswordScreen = false;
+
+
 
   @override
   Widget build(BuildContext context) {
+    if(TaskSelection.options['password']){
+      return Password(togglePassword: widget.togglePassword,);
+    }
         return WillPopScope(
       onWillPop: Futures(context: context).onBackPressed,
       child: Scaffold(
         drawer: AdminDrawer(
-          toggleHomeToUsers: toggleHomeToUsers,
-          toggleHomeToStore: toggleHomeToStore,
-          toggleHomeToPurchases: toggleHomeToPurchases,
-          toggleHomeToSales: toggleHomeToSales,
+          toggleHomeToUsers: widget.toggleHomeToUsers,
+          toggleHomeToStore: widget.toggleHomeToStore,
+          toggleHomeToPurchases: widget.toggleHomeToPurchases,
+          toggleHomeToSales: widget.toggleHomeToSales,
         ),
 
         appBar: AppBar(
           backgroundColor: _appColors.getBackgroundColor(),
           actions: [
-            Options(),
+            Options(togglePassword: widget.togglePassword,),
           ],
           title: Text(
             "Home",
             style: TextStyle(
-                color: _appColors.getFontColor()
+                color: _appColors.getPrimaryForeColor()
             ),
           ),
         ),

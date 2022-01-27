@@ -30,11 +30,11 @@ class _VitalityHygieneProducts extends StatelessWidget {
         title: 'Login | Vitality Hygiene Products',
 
         theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 255, 194, 248),
+          primaryColor: _appColors.getBackgroundColor(),//Color.fromARGB(255, 255, 194, 248),
           scaffoldBackgroundColor: _appColors.getScaffoldBgColor(),
           appBarTheme: AppBarTheme(
-            backgroundColor: Color.fromARGB(255, 255, 194, 248),
-            foregroundColor: _appColors.getFontColor(),
+            backgroundColor: _appColors.getBackgroundColor(),//Color.fromARGB(255, 255, 194, 248),
+            foregroundColor: _appColors.getPrimaryForeColor(),
             iconTheme: IconThemeData(
               color: _appColors.getFontColor(),
             )

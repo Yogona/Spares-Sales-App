@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vitality_hygiene_products/custom_widgets/Options.dart';
 import 'package:vitality_hygiene_products/custom_widgets/drawers/AdminDrawer.dart';
 import 'package:vitality_hygiene_products/functions/sales/AddSales.dart';
+import 'package:vitality_hygiene_products/functions/settings/Password.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
 import 'package:vitality_hygiene_products/shared/Futures.dart';
@@ -10,17 +11,26 @@ import '../sales/ViewSales.dart';
 
 class AdminSales extends StatelessWidget {
   final AppColors _appColors = AppColors();
+
+  //Navigation
   final Function toggleSalesToHome;
   final Function toggleSalesToUsers;
   final Function toggleSalesToStore;
   final Function toggleSalesToPurchases;
 
+  //Options
+  final Function togglePassword;
+
   AdminSales(
     {
+      //Navigation
       this.toggleSalesToHome,
       this.toggleSalesToUsers,
       this.toggleSalesToStore,
       this.toggleSalesToPurchases,
+
+      //Options
+      this.togglePassword,
     }
   );
 
@@ -33,6 +43,9 @@ class AdminSales extends StatelessWidget {
     TaskSelection.selection['sales'] = true;
     TaskSelection.selection['expenditures'] = false;
 
+    if(TaskSelection.options['password']){
+      return Password(togglePassword: togglePassword,);
+    }
 
     return WillPopScope(
       onWillPop: Futures(context: context).onBackPressed,
@@ -53,13 +66,13 @@ class AdminSales extends StatelessWidget {
             title: Text(
               "Sales",
               style: TextStyle(
-                color: _appColors.getFontColor(),
+                color: _appColors.getPrimaryForeColor(),
                 fontSize: FormSpecs.formHeaderSize,
               ),
             ),
 
             actions: [
-              Options(),
+              Options(togglePassword: togglePassword,),
             ],
           ),
 

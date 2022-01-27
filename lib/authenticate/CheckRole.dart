@@ -180,6 +180,13 @@ class _CheckRoleState extends State<CheckRole> {
     });
   }
 
+  //Options
+  void togglePassword(){
+    setState((){
+      TaskSelection.options['password'] = !TaskSelection.options['password'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final roles = Provider.of<QuerySnapshot>(context);
@@ -187,11 +194,11 @@ class _CheckRoleState extends State<CheckRole> {
     if(roles == null){
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 255, 194, 248),
+          backgroundColor: widget._appColors.getBackgroundColor(),
           title: Text(
               "Vitality Hygiene Products",
             style: TextStyle(
-              color: widget._appColors.getFontColor(),
+              color: widget._appColors.getPrimaryForeColor(),
             ),
           ),
         ),
@@ -240,39 +247,61 @@ class _CheckRoleState extends State<CheckRole> {
                 initialData: null,
                 value: DatabaseService().getMaintenance,
                 child: AdminHome(
+                  //Navigation
+                  toggleHomeToUsers: toggleHomeToUsers,
                   toggleHomeToStore: toggleHomeToStore,
                   toggleHomeToPurchases: toggleHomeToPurchases,
                   toggleHomeToSales: toggleHomeToSales,
+
+                  //Options
+                  togglePassword: togglePassword,
                 )
             );
           } else if(TaskSelection.selection['users']){
             return AdminUsers(
               user: widget.user,
+
+              //Navigation
               toggleUsersToHome: toggleUsersToHome,
               toggleUsersToStore: toggleUsersToStore,
               toggleUsersToPurchases: toggleUsersToPurchases,
               toggleUsersToSales: toggleUsersToSales,
+
+              //Options
+              togglePassword: togglePassword,
             );
           } else if(TaskSelection.selection['store']){
             return AdminStore(
+              //Navigation
               toggleStoreToHome: toggleStoreToHome,
               toggleStoreToUsers: toggleStoreToUsers,
               toggleStoreToPurchases: toggleStoreToPurchases,
               toggleStoreToSales: toggleStoreToSales,
+
+              //Options
+              togglePassword: togglePassword,
             );
           } else if(TaskSelection.selection['purchases']){
             return AdminPurchases(
+              //Navigation
               togglePurchasesToHome: togglePurchasesToHome,
               togglePurchasesToUsers: togglePurchasesToUsers,
               togglePurchasesToStore: togglePurchasesToStore,
               togglePurchasesToSales: togglePurchasesToSales,
+
+              //Options
+              togglePassword: togglePassword,
             );
           } else if(TaskSelection.selection['sales']){
             return AdminSales(
+              //Navigation
               toggleSalesToHome: toggleSalesToHome,
               toggleSalesToUsers: toggleSalesToUsers,
               toggleSalesToStore: toggleSalesToStore,
               toggleSalesToPurchases: toggleSalesToPurchases,
+
+              //Options
+              togglePassword: togglePassword,
             );
           }
         }else if(_userRole == "Mod"){

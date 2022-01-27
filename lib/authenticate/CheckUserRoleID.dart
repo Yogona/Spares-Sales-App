@@ -28,11 +28,11 @@ class _CheckUserRoleState extends State<CheckUserRoleID> {
     if (users == null) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 255, 194, 248),
+          backgroundColor: widget._appColors.getBackgroundColor(),
           title: Text(
               "Vitality Hygiene Products",
             style: TextStyle(
-              color: widget._appColors.getFontColor(),
+              color: widget._appColors.getPrimaryForeColor(),
             ),
           ),
         ),

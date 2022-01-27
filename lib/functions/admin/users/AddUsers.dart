@@ -62,13 +62,25 @@ class _AddUsersState extends State<AddUsers> {
            //Heading
            Expanded(
              flex: 1,
-             child: Center(
-               child: Text(
-                 "Add User",
-                   style: TextStyle(
-                     color: _appColors.getFontColor(),
-                     fontSize: FormSpecs.formHeaderSize,
-                   ),
+             child: Container(
+               margin: EdgeInsets.only(
+                 left: FormSpecs.formMargin,
+                 right: FormSpecs.formMargin,
+               ),
+               padding: EdgeInsets.all(
+                   1.0
+               ),
+               decoration: boxDecoration.copyWith(
+                 color: _appColors.getBoxColor(),
+               ),
+               child: Center(
+                 child: Text(
+                   "Add User",
+                     style: TextStyle(
+                       color: _appColors.getFontColor(),
+                       fontSize: FormSpecs.formHeaderSize,
+                     ),
+                 ),
                ),
              ),
            ),

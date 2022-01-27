@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:vitality_hygiene_products/functions/settings/Password.dart';
 import 'package:vitality_hygiene_products/services/AuthService.dart';
+import 'package:vitality_hygiene_products/shared/TaskSelection.dart';
+class Options extends StatefulWidget{
+  final Function togglePassword;
 
-class Options extends StatelessWidget {
+  Options({this.togglePassword});
+  @override
+  _OptionsState createState() => _OptionsState();
+}
+class _OptionsState extends State<Options> {
   final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,7 @@ class Options extends StatelessWidget {
           ),
 
           onTap: (){
-            print("pwd");
+            widget.togglePassword();
           },
         ),
 

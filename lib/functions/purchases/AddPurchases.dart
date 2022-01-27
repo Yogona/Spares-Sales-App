@@ -52,8 +52,9 @@ class _AddPurchasesState extends State<AddPurchases> {
                left: FormSpecs.formMargin,
                right: FormSpecs.formMargin
              ),
-             padding: EdgeInsets.all(
-               5.0
+             padding: EdgeInsets.only(
+                 top: subTitlePadding,
+                  bottom: subTitlePadding,
              ),
              child: Center(
                child: Text(

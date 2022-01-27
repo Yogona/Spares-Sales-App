@@ -7,4 +7,8 @@ class TaskSelection{
     "sales":false,
     "expenditures":false,
   };
+
+  static Map<String, bool> options = {
+    "password": false,
+  };
 }

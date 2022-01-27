@@ -7,9 +7,6 @@ import 'package:vitality_hygiene_products/functions/printing/PrintInvoice.dart';
 import 'package:vitality_hygiene_products/models/FeedBack.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/constants.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 
 class ViewSales extends StatefulWidget {
   //const ViewSales({Key? key}) : super(key: key);
@@ -84,6 +81,8 @@ class _ViewSalesState extends State<ViewSales> {
                             itemCount: invoices.docs.length,
 
                             itemBuilder: (invoiceContext, item){
+                              String customerNames = invoices.docs.elementAt(item)['customer_names'];
+                              String addedBy = invoices.docs.elementAt(item)['added_by'];
                               Timestamp createdAtTimestamp = invoices.docs.elementAt(item)["created_at"];
                               DateTime createdAt = DateTime.fromMillisecondsSinceEpoch(createdAtTimestamp.millisecondsSinceEpoch);
 
@@ -126,10 +125,10 @@ class _ViewSalesState extends State<ViewSales> {
 
                                     children: [
                                       Text(
-                                          "Customer Names: "+invoices.docs.elementAt(item)['customer_names']
+                                          "Customer Names: $customerNames"
                                       ),
                                       Text(
-                                          "Added by: "+invoices.docs.elementAt(item)['added_by']
+                                          "Added by: $addedBy"
                                       ),
                                       Text(
                                           "Date: "+creationDate
@@ -145,18 +144,22 @@ class _ViewSalesState extends State<ViewSales> {
                                           setState(() {
                                             invoiceId = invoices.docs.elementAt(item).id;
                                           });
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context){
-                                                  return PrintInvoice(title: "title",);
-                                                }
-                                            )
-                                          );
 
-                                          DatabaseService(query: invoiceId).getSales.listen((event) {
-                                            event.docs.map((e) => print(e.id)).toList();
-                                          });
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context){
+                                                    return StreamProvider<QuerySnapshot>.value(
+                                                      value: DatabaseService(query: invoiceId,).getSales,
+
+                                                      child: PrintInvoice(
+                                                        invoiceId: invoiceId,
+                                                        customerNames: customerNames,
+                                                      ),
+                                                    );
+                                                  }
+                                              )
+                                          );
                                         },
                                       ),
                                     ],

@@ -63,7 +63,7 @@ class FormSpecs{
       ),
 
         borderSide: BorderSide(
-          color: Color.fromARGB(255, 143, 61, 193),
+          color: Colors.blueGrey,//Color.fromARGB(255, 143, 61, 193),
           width: _borderWidth,
         )
     ),
@@ -76,7 +76,7 @@ class FormSpecs{
         ),
 
         borderSide: BorderSide(
-          color: Color.fromARGB(255, 143, 61, 193),
+          color: Colors.blueGrey,//Color.fromARGB(255, 143, 61, 193),
           width: _borderWidth,
         )
     ),

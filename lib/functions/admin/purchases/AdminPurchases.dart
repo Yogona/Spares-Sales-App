@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:vitality_hygiene_products/custom_widgets/Options.dart';
 import 'package:vitality_hygiene_products/custom_widgets/drawers/AdminDrawer.dart';
 import 'package:vitality_hygiene_products/functions/admin/purchases/AdminViewPurchases.dart';
+import 'package:vitality_hygiene_products/functions/settings/Password.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/Futures.dart';
@@ -12,16 +13,25 @@ import '../../purchases/AddPurchases.dart';
 
 class AdminPurchases extends StatelessWidget {
   final AppColors _appColors = AppColors();
+
+  //Navigation
   final Function togglePurchasesToHome;
   final Function togglePurchasesToUsers;
   final Function togglePurchasesToStore;
   final Function togglePurchasesToSales;
 
+  //Options
+  final Function togglePassword;
+
   AdminPurchases({
+    //Navigation
     this.togglePurchasesToHome,
     this.togglePurchasesToUsers,
     this.togglePurchasesToStore,
     this.togglePurchasesToSales,
+
+    //Options
+    this.togglePassword,
   });
 
   @override
@@ -32,6 +42,10 @@ class AdminPurchases extends StatelessWidget {
     TaskSelection.selection['purchases'] = true;
     TaskSelection.selection['sales'] = false;
     TaskSelection.selection['expenditures'] = false;
+
+    if(TaskSelection.options['password']){
+      return Password(togglePassword: togglePassword,);
+    }
 
     return WillPopScope(
       onWillPop: Futures(context: context).onBackPressed,
@@ -48,10 +62,10 @@ class AdminPurchases extends StatelessWidget {
             backgroundColor: _appColors.getBackgroundColor(),
             title: Text(
               "Purchases",
-              style: TextStyle(color: _appColors.getFontColor()),
+              style: TextStyle(color: _appColors.getPrimaryForeColor()),
             ),
             actions: [
-              Options(),
+              Options(togglePassword: togglePassword,),
             ],
           ),
           body: TabBarView(children: <Widget>[

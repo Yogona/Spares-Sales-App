@@ -57,11 +57,11 @@ class LoginPage extends StatelessWidget{
       onWillPop: _onBackPressed,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 255, 194, 248),
+          backgroundColor: appColors.getBackgroundColor(),
           title: Text(
             "Vitality Hygiene Products",
             style: TextStyle(
-              color: appColors.getFontColor(),
+              color: appColors.getPrimaryForeColor(),
             ),
           ),
         ),
@@ -99,7 +99,7 @@ class _LoginForm extends State<LoginForm>{
         child: Center(
           child:Container(
             decoration: boxDecoration.copyWith(
-              color: _appColors.getBackgroundColor(),
+              color: _appColors.getBoxColor()
             ),
 
             padding: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 30.0),

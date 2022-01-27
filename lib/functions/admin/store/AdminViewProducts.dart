@@ -9,6 +9,7 @@ import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
 import 'package:provider/provider.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 
 class AdminViewProducts extends StatefulWidget {
   @override
@@ -32,12 +33,21 @@ class _AdminViewProductsState extends State<AdminViewProducts> {
       children: [
         SizedBox(height: FormSpecs.sizedBoxHeight,),
 
-        Center(
-          child: Text(
-            "View Products",
-            style: TextStyle(
-              color: _appColors.getFontColor(),
-              fontSize: FormSpecs.formHeaderSize,
+        Container(
+          decoration: boxDecoration.copyWith(
+            color: _appColors.getBoxColor()
+          ),
+          margin: EdgeInsets.all(
+            FormSpecs.formMargin
+          ),
+          width: MediaQuery.of(context).size.width*fullWidth,
+          child: Center(
+            child: Text(
+              "View Products",
+              style: TextStyle(
+                color: _appColors.getFontColor(),
+                fontSize: FormSpecs.formHeaderSize,
+              ),
             ),
           ),
         ),

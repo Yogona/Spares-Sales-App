@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:vitality_hygiene_products/custom_widgets/CustomSnackBar.dart';
 import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
 import 'package:vitality_hygiene_products/custom_widgets/NoItemsFound.dart';
-import 'package:vitality_hygiene_products/functions/settings/EditProfile.dart';
 import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
@@ -398,7 +397,7 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                                                   ),
 
                                                   actions: [
-                                                    FlatButton(
+                                                    TextButton(
                                                       child: Text("No"),
                                                       onPressed: (){
                                                         Navigator.pop(context);
@@ -406,7 +405,7 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                                                     ),
 
                                                     Scaffold(
-                                                      body: FlatButton(
+                                                      body: TextButton(
                                                           child: Text("Yes"),
                                                           onPressed: () async {
                                                             Navigator.pop(context);

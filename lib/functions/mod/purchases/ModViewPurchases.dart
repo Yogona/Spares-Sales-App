@@ -9,6 +9,7 @@ import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
 import 'package:provider/provider.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 
 class ModViewPurchases extends StatefulWidget {
   final AppColors _appColors = AppColors();
@@ -53,27 +54,41 @@ class _ModViewPurchasesState extends State<ModViewPurchases> {
     final purchases = Provider.of<QuerySnapshot>(context);
 
     if(purchases == null){
-      return NoItemsFound("No purchases records.");
+      return NoItemsFound("Getting purchases...");
     }
 
     return purchases.docs.isEmpty?NoItemsFound("No purchases records."):ListView(
       children: [
-        SizedBox(height: FormSpecs.sizedBoxHeight,),
-
-        Center(
-          child: Text(
-            "View Purchases",
-            style: TextStyle(
-              color: widget._appColors.getFontColor(),
-              fontSize: FormSpecs.formHeaderSize,
+        Container(
+          decoration: boxDecoration.copyWith(
+            color: widget._appColors.getBoxColor(),
+          ),
+          margin: EdgeInsets.all(
+            FormSpecs.formMargin
+          ),
+          padding: EdgeInsets.all(
+            titleBoxPadding
+          ),
+          child: Center(
+            child: Text(
+              "View Purchases",
+              style: TextStyle(
+                color: widget._appColors.getFontColor(),
+                fontSize: FormSpecs.formHeaderSize,
+              ),
             ),
           ),
         ),
 
-        SizedBox(height: FormSpecs.sizedBoxHeight,),
-
         Container(
-          color: widget._appColors.getBackgroundColor(),
+          decoration: boxDecoration.copyWith(
+            color: widget._appColors.getBoxColor(),
+          ),
+          margin: EdgeInsets.only(
+            left: FormSpecs.formMargin,
+            right: FormSpecs.formMargin,
+            bottom: FormSpecs.formMargin,
+          ),
           child: Column(
             children: [
               Form(
@@ -85,8 +100,11 @@ class _ModViewPurchasesState extends State<ModViewPurchases> {
                     Row(
                       children: [
                         SizedBox(width: FormSpecs.sizedBoxWidth,),
+
                         Expanded(
                           child: DropdownButtonFormField(
+                            decoration: FormSpecs.textInputDecoration,
+
                             hint: Text(
                               "Select search criteria",
                               style: TextStyle(
@@ -127,6 +145,7 @@ class _ModViewPurchasesState extends State<ModViewPurchases> {
                         ),
                       ],
                     ),
+
                     SizedBox(height: FormSpecs.sizedBoxHeight,),
 
                     Row(
@@ -171,7 +190,7 @@ class _ModViewPurchasesState extends State<ModViewPurchases> {
 
         Container(
           //color: Colors.red,
-          height: 335,
+          height: MediaQuery.of(context).size.height*0.39,
           child: ListView.builder(
               itemCount: purchases.docs.length,
               itemBuilder: (BuildContext context, int index){
@@ -193,6 +212,7 @@ class _ModViewPurchasesState extends State<ModViewPurchases> {
                     isCurrentUserPurchase = true;
                   }
                 }).toList();
+
                 return Column(
                   children: [
                     ListTile(
@@ -252,7 +272,7 @@ class _ModViewPurchasesState extends State<ModViewPurchases> {
                       trailing: (!isCurrentUserPurchase)?Container(height: 0.0,width:0.0,):StreamProvider<QuerySnapshot>.value(
                         initialData: null,
                         value: DatabaseService().store,
-                        child: FlatButton(
+                        child: TextButton(
                           child: Icon(Icons.highlight_remove),
 
                           onPressed: () async {
@@ -277,14 +297,14 @@ class _ModViewPurchasesState extends State<ModViewPurchases> {
                                     "You are about to delete purchase record!",
                                   ),
                                   actions: [
-                                    FlatButton(
+                                    TextButton(
                                       child: Text("Cancel"),
                                       onPressed: (){
                                         Navigator.pop(context);
                                       },
                                     ),
 
-                                    FlatButton(
+                                    TextButton(
                                       child: Text("Ok"),
                                       onPressed: (){
                                         Navigator.pop(context);

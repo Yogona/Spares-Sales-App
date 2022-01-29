@@ -31,7 +31,6 @@ class CheckRole extends StatefulWidget {
   _CheckRoleState createState() => _CheckRoleState();
 }
 
-// ignore: must_be_immutable
 class _CheckRoleState extends State<CheckRole> {
   String _userRole;
 
@@ -311,28 +310,44 @@ class _CheckRoleState extends State<CheckRole> {
                 initialData: null,
                 value: DatabaseService().getMaintenance,
                 child: ModHome(
+                  //Navigation
                   toggleHomeToStore: toggleHomeToStore,
                   toggleHomeToPurchases: toggleHomeToPurchases,
                   toggleHomeToSales: toggleHomeToSales,
+
+                  //Options
+                  togglepassword: togglePassword,
                 )
             );
           } else if(TaskSelection.selection['store']){
             return ModsStore(
+              //Navigation
               toggleStoreToHome: toggleStoreToHome,
               toggleStoreToPurchases: toggleStoreToPurchases,
               toggleStoreToSales: toggleStoreToSales,
+
+              //Options
+              togglePassword: togglePassword,
             );
           } else if(TaskSelection.selection['purchases']){
             return ModPurchases(
+              //Navigation
               togglePurchasesToHome: togglePurchasesToHome,
               togglePurchasesToStore: togglePurchasesToStore,
               togglePurchasesToSales: togglePurchasesToSales,
+
+              //Options
+              togglePassword: togglePassword,
             );
           } else if(TaskSelection.selection['sales']){
             return ModSales(
+              //Navigation
               toggleSalesToHome: toggleSalesToHome,
               toggleSalesToStore: toggleSalesToStore,
               toggleSalesToPurchases: toggleSalesToPurchases,
+
+              //Options
+              togglePassword: togglePassword,
             );
           }
         }

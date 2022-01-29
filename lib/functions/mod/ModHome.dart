@@ -2,29 +2,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
-import 'package:vitality_hygiene_products/custom_widgets/NoItemsFound.dart';
 import 'package:vitality_hygiene_products/custom_widgets/Options.dart';
 import 'package:vitality_hygiene_products/custom_widgets/drawers/ModDrawer.dart';
+import 'package:vitality_hygiene_products/functions/settings/Password.dart';
 import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
 import 'package:vitality_hygiene_products/shared/Futures.dart';
 import 'package:vitality_hygiene_products/shared/TaskSelection.dart';
-import 'package:vitality_hygiene_products/shared/General.dart';
 import 'package:vitality_hygiene_products/shared/constants.dart';
 
 class ModHome extends StatelessWidget {
   final AppColors _appColors = AppColors();
 
+  //Navigation
   final Function toggleHomeToStore;
   final Function toggleHomeToPurchases;
   final Function toggleHomeToSales;
 
+  //Options
+  final Function togglepassword;
+
   ModHome({
+    //navigation
     this.toggleHomeToStore,
     this.toggleHomeToPurchases,
     this.toggleHomeToSales,
+
+    //Options
+    this.togglepassword,
   });
 
   @override
@@ -44,6 +51,10 @@ class ModHome extends StatelessWidget {
 
     String userID = LoggedInUser.getUID();
 
+    if(TaskSelection.options['password']){
+      return Password(email: LoggedInUser.getEmail(), togglePassword: togglepassword,);
+    }
+
     return WillPopScope(
       onWillPop: Futures(context: context).onBackPressed,
       child: Scaffold(
@@ -55,7 +66,7 @@ class ModHome extends StatelessWidget {
 
         appBar: AppBar(
           actions: [
-            Options(),
+            Options(togglePassword: togglepassword,),
           ],
           title: Text(
             "Home",

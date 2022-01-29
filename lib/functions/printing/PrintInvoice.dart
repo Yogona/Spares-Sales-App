@@ -225,6 +225,7 @@ class PrintInvoice extends StatelessWidget {
     }
 
     return StreamProvider<QuerySnapshot>.value(
+      initialData: null,
       value: DatabaseService(query: invoiceId,).store,
       builder: (context, productsWidget){
         products = Provider.of<QuerySnapshot>(context);

@@ -1,6 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vitality_hygiene_products/models/FeedBack.dart';
-import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/models/UserModel.dart';
 import 'package:vitality_hygiene_products/shared/General.dart';
 

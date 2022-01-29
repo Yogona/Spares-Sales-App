@@ -3,26 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vitality_hygiene_products/custom_widgets/Options.dart';
 import 'package:vitality_hygiene_products/custom_widgets/drawers/ModDrawer.dart';
+import 'package:vitality_hygiene_products/functions/settings/Password.dart';
+import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/Futures.dart';
 import 'package:vitality_hygiene_products/shared/GetUsers.dart';
+import 'package:vitality_hygiene_products/shared/TaskSelection.dart';
 import '../purchases/AddPurchases.dart';
 
 class ModPurchases extends StatelessWidget {
   final AppColors _appColors = AppColors();
+
+  //Navigation
   final Function togglePurchasesToHome;
   final Function togglePurchasesToStore;
   final Function togglePurchasesToSales;
 
+  //Options
+  final Function togglePassword;
+
   ModPurchases({
+    //Navigation
     this.togglePurchasesToHome,
     this.togglePurchasesToStore,
     this.togglePurchasesToSales,
+
+    //Options
+    this.togglePassword
   });
 
   @override
   Widget build(BuildContext context) {
+    if(TaskSelection.options['password']){
+      return Password(email: LoggedInUser.getEmail(), togglePassword: togglePassword,);
+    }
+
     return WillPopScope(
       onWillPop: Futures(context: context).onBackPressed,
       child: DefaultTabController(
@@ -39,7 +55,7 @@ class ModPurchases extends StatelessWidget {
               style: TextStyle(color: _appColors.getPrimaryForeColor()),
             ),
             actions: [
-              Options(),
+              Options(togglePassword: togglePassword,),
             ],
           ),
           body: TabBarView(children: <Widget>[

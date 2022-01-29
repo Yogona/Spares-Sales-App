@@ -8,7 +8,7 @@ import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
 import 'package:provider/provider.dart';
-import 'package:vitality_hygiene_products/shared/General.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 
 class ModViewProducts extends StatefulWidget {
   @override
@@ -31,12 +31,23 @@ class _ModViewProductsState extends State<ModViewProducts> {
       children: [
         SizedBox(height: FormSpecs.sizedBoxHeight,),
 
-        Center(
-          child: Text(
-            "View Products",
-            style: TextStyle(
-              color: _appColors.getFontColor(),
-              fontSize: FormSpecs.formHeaderSize,
+        Container(
+          decoration: boxDecoration.copyWith(
+            color: _appColors.getBoxColor(),
+          ),
+          margin: EdgeInsets.all(
+            FormSpecs.formMargin
+          ),
+          padding: EdgeInsets.all(
+            titleBoxPadding
+          ),
+          child: Center(
+            child: Text(
+              "View Products",
+              style: TextStyle(
+                color: _appColors.getFontColor(),
+                fontSize: FormSpecs.formHeaderSize,
+              ),
             ),
           ),
         ),
@@ -71,7 +82,7 @@ class _ModViewProductsState extends State<ModViewProducts> {
                           final users = Provider.of<QuerySnapshot>(context);
 
                           if(users == null){
-                            return NoItemsFound("No users records.");
+                            return NoItemsFound("Getting user...");
                           }
 
                           String userName = "";
@@ -158,7 +169,8 @@ class _ModViewProductsState extends State<ModViewProducts> {
                               ],
                             ),
 
-                            trailing: (!(key.get("addedBy").toString() == LoggedInUser.getUID()))?Container(height: 0.0,width: 0.0,):FlatButton(
+                            trailing: (!(key.get("addedBy").toString() == LoggedInUser.getUID()))?Container(height: 0.0,width: 0.0,):
+                            TextButton(
                               child: Icon(Icons.highlight_remove),
 
                               onPressed: () async {
@@ -190,14 +202,14 @@ class _ModViewProductsState extends State<ModViewProducts> {
                                       ),
 
                                       actions: [
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("No"),
                                           onPressed: (){
                                             Navigator.pop(context);
                                           },
                                         ),
 
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Yes"),
                                           onPressed: () {
                                             Navigator.pop(context);

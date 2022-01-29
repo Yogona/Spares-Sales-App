@@ -344,7 +344,7 @@ class _AdminViewPurchasesState extends State<AdminViewPurchases> {
                           trailing: StreamProvider<QuerySnapshot>.value(
                             initialData: null,
                             value: DatabaseService().store,
-                            child: FlatButton(
+                            child: TextButton(
                               child: Icon(Icons.highlight_remove),
 
                               onPressed: () async {
@@ -369,14 +369,14 @@ class _AdminViewPurchasesState extends State<AdminViewPurchases> {
                                         "You are about to delete purchase record!",
                                       ),
                                       actions: [
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Cancel"),
                                           onPressed: (){
                                             Navigator.pop(context);
                                           },
                                         ),
 
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Ok"),
                                           onPressed: (){
                                             Navigator.pop(context);
@@ -404,7 +404,7 @@ class _AdminViewPurchasesState extends State<AdminViewPurchases> {
                                   );
                                 }else{
                                   SnackBar snackBar=CustomSnackBar(message: "No internet connection.").getSnackBar(context);
-                                  Scaffold.of(context).showSnackBar(snackBar);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 }
                               },
                             ),

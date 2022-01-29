@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vitality_hygiene_products/custom_widgets/CustomSnackBar.dart';
 import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
 import 'package:vitality_hygiene_products/functions/printing/PrintInvoice.dart';
-import 'package:vitality_hygiene_products/models/FeedBack.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/constants.dart';
 
@@ -45,6 +43,7 @@ class _ViewSalesState extends State<ViewSales> {
 
             if(products.docs.isNotEmpty){
               return StreamProvider<QuerySnapshot>.value(
+                initialData: null,
                 value: widget._dbServices.getInvoices,
                 builder: (invoiceContext, invoices){
                   final invoices = Provider.of<QuerySnapshot>(invoiceContext);
@@ -150,6 +149,7 @@ class _ViewSalesState extends State<ViewSales> {
                                               MaterialPageRoute(
                                                   builder: (context){
                                                     return StreamProvider<QuerySnapshot>.value(
+                                                      initialData: null,
                                                       value: DatabaseService(query: invoiceId,).getSales,
 
                                                       child: PrintInvoice(
@@ -175,6 +175,7 @@ class _ViewSalesState extends State<ViewSales> {
                           height: salesViewHeight,
 
                           child: StreamProvider<QuerySnapshot>.value(
+                            initialData: null,
                             value: DatabaseService(query: invoiceId).getSales,
 
                             builder: (saleContext, sales){

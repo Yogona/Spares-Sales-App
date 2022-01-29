@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vitality_hygiene_products/functions/settings/Password.dart';
 import 'package:vitality_hygiene_products/services/AuthService.dart';
-import 'package:vitality_hygiene_products/shared/TaskSelection.dart';
+
 class Options extends StatefulWidget{
   final Function togglePassword;
 

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:vitality_hygiene_products/custom_widgets/CustomSnackBar.dart';
 import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
 import 'package:vitality_hygiene_products/custom_widgets/NoItemsFound.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
@@ -158,7 +157,7 @@ class _AdminViewProductsState extends State<AdminViewProducts> {
                             ],
                           ),
 
-                          trailing: FlatButton(
+                          trailing: TextButton(
                             child: Icon(Icons.highlight_remove),
 
                             onPressed: () async {
@@ -190,14 +189,14 @@ class _AdminViewProductsState extends State<AdminViewProducts> {
                                     ),
 
                                     actions: [
-                                      FlatButton(
+                                      TextButton(
                                         child: Text("No"),
                                         onPressed: (){
                                           Navigator.pop(ctx);
                                         },
                                       ),
 
-                                      FlatButton(
+                                      TextButton(
                                         child: Text("Yes"),
                                         onPressed: () async {
                                           Navigator.pop(ctx);

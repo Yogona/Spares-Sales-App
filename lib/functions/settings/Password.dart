@@ -1,12 +1,8 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:vitality_hygiene_products/custom_widgets/CustomSnackBar.dart';
 import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
 import 'package:vitality_hygiene_products/models/FeedBack.dart';
-import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
-import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/services/AuthService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
@@ -15,7 +11,6 @@ import 'package:vitality_hygiene_products/shared/constants.dart';
 class Password extends StatefulWidget {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final AppColors _appColors = AppColors();
-  final DatabaseService _databaseService = DatabaseService();
   final AuthService _auth = AuthService();
 
   final Function togglePassword;
@@ -30,9 +25,9 @@ class Password extends StatefulWidget {
 
 class _PasswordState extends State<Password> {
   TextEditingController _emailCrl = TextEditingController();
-  String _oldPassword;
+  //String _oldPassword;
   String _newPassword;
-  String _confirmPassword;
+  //String _confirmPassword;
   String _error;
 
   bool _isSendEmail = true;
@@ -162,7 +157,7 @@ class _PasswordState extends State<Password> {
                       },
 
                       onChanged: (val){
-                        _oldPassword = val;
+                        //_oldPassword = val;
                       },
                     ),
 
@@ -223,7 +218,7 @@ class _PasswordState extends State<Password> {
                       },
 
                       onChanged: (val){
-                        _confirmPassword = val;
+                        //_confirmPassword = val;
                       },
                     ),
 

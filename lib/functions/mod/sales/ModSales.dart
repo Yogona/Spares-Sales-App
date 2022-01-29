@@ -33,7 +33,7 @@ class ModSales extends StatelessWidget {
             title: Text(
               "Sales",
               style: TextStyle(
-                color: _appColors.getFontColor(),
+                color: _appColors.getPrimaryForeColor(),
                 fontSize: FormSpecs.formHeaderSize,
               ),
             ),

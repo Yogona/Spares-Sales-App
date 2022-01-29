@@ -12,6 +12,7 @@ import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
 import 'package:vitality_hygiene_products/shared/Futures.dart';
 import 'package:vitality_hygiene_products/shared/TaskSelection.dart';
 import 'package:vitality_hygiene_products/shared/General.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 
 class ModHome extends StatelessWidget {
   final AppColors _appColors = AppColors();
@@ -59,7 +60,7 @@ class ModHome extends StatelessWidget {
           title: Text(
             "Home",
             style: TextStyle(
-                color: _appColors.getFontColor()
+                color: _appColors.getPrimaryForeColor()
             ),
           ),
         ),
@@ -71,16 +72,28 @@ class ModHome extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: FormSpecs.sizedBoxHeight,),
-                  Center(
-                    child: Text(
-                      "Moderator",
-                      style: TextStyle(
-                        color: _appColors.getFontColor(),
-                        fontSize: FormSpecs.formHeaderSize,
+                  Container(
+                    margin: EdgeInsets.all(
+                      FormSpecs.formMargin
+                    ),
+                    padding: EdgeInsets.all(
+                      5.0
+                    ),
+                    decoration: boxDecoration.copyWith(
+                      color: _appColors.getBoxColor(),
+                    ),
+
+                    child: Center(
+                      child: Text(
+                        "Moderator",
+                        style: TextStyle(
+                          color: _appColors.getFontColor(),
+                          fontSize: FormSpecs.formHeaderSize,
+                        ),
                       ),
                     ),
                   ),
+
                   SizedBox(height: FormSpecs.sizedBoxHeight,),
 
                   Container(
@@ -97,7 +110,7 @@ class ModHome extends StatelessWidget {
                                   final store = Provider.of<QuerySnapshot>(ctx);
 
                                   if(store == null){
-                                    return LoadingWidget("Please wait...");
+                                    return LoadingWidget("Getting products...");
                                   }
 
                                   int countProducts = store.size;

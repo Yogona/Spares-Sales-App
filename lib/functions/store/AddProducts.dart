@@ -58,10 +58,11 @@ class _AddProductsState extends State<AddProducts> {
          mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          SizedBox(height: 20,),
-
           //Heading
           Container(
+            padding: EdgeInsets.all(
+                titleBoxPadding
+            ),
             decoration: boxDecoration.copyWith(
               color: _appColors.getBoxColor(),
             ),

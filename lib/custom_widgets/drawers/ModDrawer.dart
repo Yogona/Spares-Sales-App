@@ -62,12 +62,12 @@ class ModDrawer extends StatelessWidget {
             selected: TaskSelection.selection['home'],
             leading: Icon(
               Icons.home,
-              color: _appColors.getFontColor(),
+              color: (TaskSelection.selection['home'])?_appColors.getPrimaryForeColor():_appColors.getFontColor(),
             ),
             title: Text(
               "Home",
               style: TextStyle(
-                  color: _appColors.getFontColor()
+                  color: (TaskSelection.selection['home'])?_appColors.getPrimaryForeColor():_appColors.getFontColor()
               ),
             ),
             onTap: (){
@@ -88,12 +88,12 @@ class ModDrawer extends StatelessWidget {
             selectedTileColor: _appColors.getBackgroundColor(),
             leading: Icon(
                 Icons.store,
-                color: _appColors.getFontColor()
+                color: (TaskSelection.selection['store'])?_appColors.getPrimaryForeColor():_appColors.getFontColor()
             ),
             title: Text(
               "Store",
               style: TextStyle(
-                  color: _appColors.getFontColor()
+                  color: (TaskSelection.selection['store'])?_appColors.getPrimaryForeColor():_appColors.getFontColor()
               ),
             ),
             onTap: (){
@@ -114,12 +114,12 @@ class ModDrawer extends StatelessWidget {
             selectedTileColor: _appColors.getBackgroundColor(),
             leading: Icon(
                 Icons.monetization_on,
-                color: _appColors.getFontColor()
+                color: (TaskSelection.selection['purchases'])?_appColors.getPrimaryForeColor():_appColors.getFontColor()
             ),
             title: Text(
               "Purchases",
               style: TextStyle(
-                  color: _appColors.getFontColor()
+                  color: (TaskSelection.selection['purchases'])?_appColors.getPrimaryForeColor():_appColors.getFontColor()
               ),
             ),
             onTap: (){
@@ -140,12 +140,12 @@ class ModDrawer extends StatelessWidget {
             selectedTileColor: _appColors.getBackgroundColor(),
             leading: Icon(
               Icons.monetization_on,
-              color: _appColors.getFontColor(),
+              color: (TaskSelection.selection['sales'])?_appColors.getPrimaryForeColor():_appColors.getFontColor(),
             ),
             title: Text(
               "Sales",
               style: TextStyle(
-                  color: _appColors.getFontColor()
+                  color: (TaskSelection.selection['sales'])?_appColors.getPrimaryForeColor():_appColors.getFontColor()
               ),
             ),
             onTap: (){

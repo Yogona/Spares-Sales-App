@@ -66,8 +66,8 @@ class _PasswordState extends State<Password> {
         children: [
           Align(
             alignment: Alignment.center,
+
             child: Container(
-              //height: MediaQuery.of(context).size.height*0.5,
               margin: EdgeInsets.only(
                 left: FormSpecs.formMargin,
                 right: FormSpecs.formMargin,
@@ -108,22 +108,28 @@ class _PasswordState extends State<Password> {
                       ),
 
                       onPressed: () async {
-                        setState(() {
-                          _isLoading = true;
-                        });
+                        final hasConnection = await DataConnectionChecker().hasConnection;
 
-                        await widget._auth.sendPasswordRecoveryEmail(email: _emailCrl.text);
+                        if(hasConnection){
+                          setState(() {
+                            _isLoading = true;
+                          });
 
-                        if(feedBack['hasError']){
-                          Fluttertoast.showToast(msg: "There was an error sending email, contact system admin.");
+                          await widget._auth.sendPasswordRecoveryEmail(email: _emailCrl.text);
+
+                          if(feedBack['hasError']){
+                            Fluttertoast.showToast(msg: "There was an error sending email, contact system admin.");
+                          }else{
+                            Fluttertoast.showToast(msg: "Password recovery email was sent successfully.");
+                          }
+
+                          setState((){
+                            //_isSendEmail = false;
+                            _isLoading = false;
+                          });
                         }else{
-                          Fluttertoast.showToast(msg: "Password recovery email was sent successfully.");
+                          Fluttertoast.showToast(msg: "No internet connection.");
                         }
-
-                        setState((){
-                          //_isSendEmail = false;
-                          _isLoading = false;
-                        });
                       },
                     ),
                   ],

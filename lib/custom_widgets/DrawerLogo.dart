@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 
 class DrawerLogo extends StatelessWidget {
   final AppColors _appColors = AppColors();
@@ -19,7 +20,7 @@ class DrawerLogo extends StatelessWidget {
           Container(
             alignment: Alignment.bottomCenter,
             child: Text(
-              "Vitality Hygiene Products",
+              appTitle,
               style: TextStyle(
                 color: _appColors.getFontColor(),
                 fontSize: 20,

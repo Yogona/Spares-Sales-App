@@ -42,7 +42,7 @@ class ModsStore extends StatelessWidget {
             title: Text(
               "Store",
               style: TextStyle(
-                color: _appColors.getFontColor(),
+                color: _appColors.getPrimaryForeColor(),
               ),
             ),
 

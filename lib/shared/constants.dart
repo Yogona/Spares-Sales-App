@@ -22,6 +22,9 @@ final btnStyle = ButtonStyle(
   foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
 );
 
+//Title box
+const double titleBoxPadding = 5.0;
+
 /*General fixed texts*/
 const String errorMsg = "Kuna tatizo, tafadhali wasiliana na mtaalamu.";
 const String appTitle = "Spares Sales System";

@@ -36,7 +36,7 @@ class ModPurchases extends StatelessWidget {
           appBar: AppBar(
             title: Text(
               "Purchases",
-              style: TextStyle(color: _appColors.getFontColor()),
+              style: TextStyle(color: _appColors.getPrimaryForeColor()),
             ),
             actions: [
               Options(),

@@ -8,8 +8,8 @@ class AppColors{
   final Color _boxesColor       = Colors.white;
 
   //Tabs colors
-  final Color _selectedTabColor     = Colors.black;
-  final Color _unselectedLabelColor = Colors.white;//Color.fromARGB(255, 143, 61, 193);
+  final Color _selectedTabColor     = Colors.white;
+  final Color _unselectedLabelColor = Colors.black;//Color.fromARGB(255, 143, 61, 193);
 
   //Text field colors
   final Color _txtFieldFillColor    = Colors.white;

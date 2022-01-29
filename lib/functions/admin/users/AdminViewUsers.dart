@@ -319,40 +319,9 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                                               //backgroundColor: Colors.black
                                             ),
                                           ),
-
-                                          // Text(
-                                          //   "Commission Rate: "+user.get("commissionRate(%)").toString(),
-                                          //   style: TextStyle(
-                                          //     color: Colors.white,
-                                          //   ),
-                                          // ),
                                         ],
                                       ),
                                     ),
-
-                                    // onLongPress: (){
-                                    //   Navigator.push(context, MaterialPageRoute(
-                                    //       builder: (context) => ProductAssignment(userID: user.id,)
-                                    //   ));
-                                    // },
-
-                                    // onTap: (){
-                                    //   showModalBottomSheet(
-                                    //       context: context,
-                                    //       builder: (context){
-                                    //         return Scaffold(
-                                    //           backgroundColor: widget._appColors.getBoxColor(),
-                                    //
-                                    //           body: Preferences(
-                                    //             userID: user.id,
-                                    //             commissionRate: user.get("commissionRate(%)"),
-                                    //             roleID: user.get("roleID"),
-                                    //           ),
-                                    //
-                                    //         );
-                                    //       }
-                                    //   );
-                                    // },
                                   ),
 
                                   Row(
@@ -377,6 +346,22 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                                       //     },
                                       //   ),
                                       // ),
+
+                                      Expanded(
+                                        flex: 10,
+
+                                        child: ElevatedButton(
+                                          style: btnStyle,
+
+                                          child: Text(
+                                            "Password"
+                                          ),
+
+                                          onPressed: (){
+                                            print("pwd");
+                                          },
+                                        ),
+                                      ),
 
                                       Expanded(flex: 1, child: SizedBox(width: 0.0, height: 0.0,)),
 

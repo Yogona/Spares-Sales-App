@@ -43,14 +43,11 @@ class AdminHome extends StatefulWidget{
 
 class _AdminHomeState extends State<AdminHome> {
   final AppColors _appColors = AppColors();
-  //bool _isPasswordScreen = false;
-
-
 
   @override
   Widget build(BuildContext context) {
     if(TaskSelection.options['password']){
-      return Password(togglePassword: widget.togglePassword,);
+      return Password(togglePassword: widget.togglePassword, email: LoggedInUser.getEmail(),);
     }
         return WillPopScope(
       onWillPop: Futures(context: context).onBackPressed,

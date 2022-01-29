@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:vitality_hygiene_products/authenticate/Wrapper.dart';
 import 'package:vitality_hygiene_products/services/AuthService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
-import 'package:vitality_hygiene_products/shared/Constants.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 import 'models/UserModel.dart';
 
 void main() async {
@@ -27,7 +27,7 @@ class _VitalityHygieneProducts extends StatelessWidget {
       child: MaterialApp(
         home: Wrapper(version: version,),
 
-        title: 'Login | Vitality Hygiene Products',
+        title: appTitle,
 
         theme: ThemeData(
           primaryColor: _appColors.getBackgroundColor(),//Color.fromARGB(255, 255, 194, 248),

@@ -22,8 +22,9 @@ final btnStyle = ButtonStyle(
   foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
 );
 
-/*Error messages*/
+/*General fixed texts*/
 const String errorMsg = "Kuna tatizo, tafadhali wasiliana na mtaalamu.";
+const String appTitle = "Spares Sales System";
 
 //Decorations
 const double borderRadius = 20.0;

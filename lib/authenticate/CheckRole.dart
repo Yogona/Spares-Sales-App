@@ -18,6 +18,7 @@ import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/General.dart';
 import 'package:vitality_hygiene_products/shared/TaskSelection.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 
 class CheckRole extends StatefulWidget {
   final AppColors _appColors = AppColors();
@@ -196,7 +197,7 @@ class _CheckRoleState extends State<CheckRole> {
         appBar: AppBar(
           backgroundColor: widget._appColors.getBackgroundColor(),
           title: Text(
-              "Vitality Hygiene Products",
+              appTitle,
             style: TextStyle(
               color: widget._appColors.getPrimaryForeColor(),
             ),

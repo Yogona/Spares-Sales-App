@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget{
         appBar: AppBar(
           backgroundColor: appColors.getBackgroundColor(),
           title: Text(
-            "Vitality Hygiene Products",
+            appTitle,
             style: TextStyle(
               color: appColors.getPrimaryForeColor(),
             ),

@@ -5,6 +5,7 @@ import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
 import 'package:vitality_hygiene_products/models/UserModel.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
+import 'package:vitality_hygiene_products/shared/constants.dart';
 import 'CheckRole.dart';
 
 class CheckUserRoleID extends StatefulWidget {
@@ -30,7 +31,7 @@ class _CheckUserRoleState extends State<CheckUserRoleID> {
         appBar: AppBar(
           backgroundColor: widget._appColors.getBackgroundColor(),
           title: Text(
-              "Vitality Hygiene Products",
+              appTitle,
             style: TextStyle(
               color: widget._appColors.getPrimaryForeColor(),
             ),

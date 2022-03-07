@@ -27,7 +27,7 @@ class AdminHome extends StatefulWidget{
 
   AdminHome(
       {
-        //Navigations
+        //Navigation
         this.toggleHomeToUsers,
         this.toggleHomeToStore,
         this.toggleHomeToPurchases,
@@ -114,7 +114,7 @@ class _AdminHomeState extends State<AdminHome> {
                       final users = Provider.of<QuerySnapshot>(context);
 
                       if(users == null){
-                        return LoadingWidget("Users...");
+                        return LoadingWidget("Getting users...");
                       }
 
                       int countAdmins = 0, countMods = 0, countWorkers = 0;
@@ -126,9 +126,7 @@ class _AdminHomeState extends State<AdminHome> {
                               ++countAdmins;
                             } else if(role.get("role") == "Mod"){
                               ++countMods;
-                            }// else if(role.get("role") == "worker"){
-                            //   ++countWorkers;
-                            // }
+                            }
                           }
                         }).toList();
                       }).toList();
@@ -157,13 +155,6 @@ class _AdminHomeState extends State<AdminHome> {
                                 color: _appColors.getTileSubtitleColor(),
                               ),
                             ),
-
-                            Text(
-                              "Workers: "+countWorkers.toString(),
-                              style: TextStyle(
-                                color: _appColors.getTileSubtitleColor(),
-                              ),
-                            ),
                           ],
                         ),
                       );
@@ -183,7 +174,7 @@ class _AdminHomeState extends State<AdminHome> {
                       final store = Provider.of<QuerySnapshot>(ctx);
 
                       if(store == null){
-                        return NoItemsFound("No products were found.");
+                        return NoItemsFound("Getting products...");
                       }
 
                       int countProducts = store.size;

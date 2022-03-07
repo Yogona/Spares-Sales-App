@@ -3,6 +3,7 @@ import 'package:vitality_hygiene_products/custom_widgets/Options.dart';
 import 'package:vitality_hygiene_products/custom_widgets/drawers/AdminDrawer.dart';
 import 'package:vitality_hygiene_products/functions/sales/AddSales.dart';
 import 'package:vitality_hygiene_products/functions/settings/Password.dart';
+import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/FormSpecs.dart';
 import 'package:vitality_hygiene_products/shared/Futures.dart';
@@ -44,7 +45,7 @@ class AdminSales extends StatelessWidget {
     TaskSelection.selection['expenditures'] = false;
 
     if(TaskSelection.options['password']){
-      return Password(togglePassword: togglePassword,);
+      return Password(email: LoggedInUser.getEmail(), togglePassword: togglePassword,);
     }
 
     return WillPopScope(

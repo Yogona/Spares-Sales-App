@@ -72,81 +72,11 @@ class DatabaseService {
   }
 
 //-------------UPDATING METHODS---------------//
-  Future<dynamic> updateSlipStatus(String status, String uri) async{
-    try{
-      double commissionRate = 0.0;
-      String userId = "";
 
-      if(status == "Accepted"){
-        QuerySnapshot sales = await _sales.get();
-        for(final sale in sales.docs){
-          if(sale.get("imageUri") == uri){
-            userId = sale.get("addedBy");
-            break;
-          }
-        }
-
-        _users.get().then((value){
-          value.docs.map((user){
-            if(user.id == userId){
-              commissionRate = user.get("commissionRate(%)")/100;
-            }
-          }).toList();
-        });
-      }
-
-      Map<String,dynamic> data;
-
-
-
-      _sales.get().then((value) {
-        value.docs.map((sale) {
-          if(sale.get("imageUri")==uri){
-            data = {
-              'status':status,
-              'isVerified':(status=="Rejected")?false:true,
-              'commission':(status == "Rejected")?0.0:sale.get("subTotal") * commissionRate,
-            };
-
-            _sales.doc(sale.id).update(data);
-          }
-        }).toList();
-      });
-
-
-      _feedback['hasError'] = false;
-      _feedback['message']  = "Status has been updated successfully.";
-      return _feedback;
-    }catch(e){
-
-    }
-  }
-  // Future<dynamic> updateAssignedProduct(String assignedProduct, int quantity, String unit, DateTime date) async {
-  //   try{
-  //     DateTime updatedAt = DateTime(date.year, date.month, date.day);
-  //
-  //     Map<String, dynamic> data = {
-  //       unit:quantity,
-  //       'updatedAt':updatedAt,
-  //     };
-  //
-  //     await _productsAssignments.doc(assignedProduct).update(data);
-  //
-  //     _feedback['hasError'] = false;
-  //     _feedback['message'] = "Sale record has been deleted successfully.";
-  //     return _feedback;
-  //   }catch(e){
-  //     var error = e.toString().split(']');
-  //     _feedback['hasError'] = true;
-  //     _feedback['message'] = error[1];
-  //     return _feedback;
-  //   }
-  // }
-
-  Future<dynamic> updateUserRole(String uid, String role) async {
+  Future<dynamic> updateUserRole({String uid, String roleId}) async {
     try{
       Map<String, dynamic> data = {
-        'roleID':role,
+        'roleID':roleId,
       };
 
       await _users.doc(uid).update(data);
@@ -163,7 +93,7 @@ class DatabaseService {
     }
   }
 
-  Future<dynamic> updateProfile(String uid, String firstName, String middleName, String lastName, String address, String email, String phone, String gender) async {
+  Future<dynamic> updateProfile({String uid, String firstName, String middleName, String lastName, String address, String email, String phone, String gender, String roleId}) async {
     try{
       Map<String, dynamic> data = {
         'firstName':firstName,
@@ -173,6 +103,7 @@ class DatabaseService {
         'email':email,
         'phone':phone,
         'gender':gender,
+        'roleID':roleId,
       };
 
       await _users.doc(uid).update(data);
@@ -185,79 +116,6 @@ class DatabaseService {
       var error = e.toString().split(']');
       _feedback['message'] = error[1];
       _feedback['hasError'] = true;
-      return _feedback;
-    }
-  }
-
-  // Future<dynamic> updateProductAssignment(String assignmentID, String productID, String quantity, String unit) async {
-  //   try{
-  //     _feedback['hasError'] = false;
-  //
-  //     DocumentSnapshot doc = await _store.doc(productID).get();
-  //     int storeQuantity = doc.get(unit);
-  //
-  //     if(storeQuantity < int.parse(quantity)){
-  //       if(storeQuantity == 1){
-  //         String oneUnit;
-  //         if(unit == "pieces"){
-  //           oneUnit = "piece";
-  //         }else if(unit == "cartons"){
-  //           oneUnit = "carton";
-  //         } else {
-  //           oneUnit = "dozen";
-  //         }
-  //         _feedback['message'] = "Can't assign products, there is only $storeQuantity $oneUnit in the store.";
-  //       }else{
-  //         _feedback['message'] = "Can't assign products, there are only $storeQuantity $unit in the store.";
-  //       }
-  //
-  //       return _feedback;
-  //     }else{
-  //       DateTime date = DateTime(DateTime.now().toUtc().year, DateTime.now().toUtc().month, DateTime.now().toUtc().day);
-  //
-  //       DocumentSnapshot doc = await _productsAssignments.doc(assignmentID).get();
-  //       int tempQuantity = doc.get(unit) + int.parse(quantity);
-  //       Map<String, dynamic> data = {
-  //         unit:tempQuantity,
-  //         'updatedAt':date,
-  //       };
-  //
-  //       _productsAssignments.doc(assignmentID).update(data);
-  //
-  //       storeQuantity -= int.parse(quantity);
-  //
-  //       data = {
-  //         unit:storeQuantity,
-  //         'updatedAt':date,
-  //       };
-  //
-  //       _store.doc(productID).update(data);
-  //
-  //       _feedback['hasError'] = false;
-  //       _feedback['message'] = "Product assignment has completed.";
-  //       return _feedback;
-  //     }
-  //   }catch(e){
-  //     _feedback['hasError'] = true;
-  //     var error = e.toString().split(']');
-  //     _feedback['message'] = error[1];
-  //     return _feedback;
-  //   }
-  // }
-
-  Future<dynamic> updateCommissionRate(String userID, double commissionRate) async {
-    Map<String, dynamic> data = {
-      'commissionRate(%)':commissionRate,
-    };
-
-    try{
-      await _users.doc(userID).update(data);
-      _feedback['hasError'] = false;
-      _feedback['message'] = "Commission rate was updated to $commissionRate%.";
-      return _feedback;
-    }catch(e){
-      _feedback['hasError'] = true;
-      _feedback['message'] = e.toString();
       return _feedback;
     }
   }
@@ -466,33 +324,6 @@ class DatabaseService {
 
 //-----------DELETING METHODS--------------//
 
-  Future<dynamic> deleteSlip(String slipUrl) async {
-    try{
-      _storage.refFromURL(slipUrl).delete();
-
-      Map<String, dynamic> data = {
-        'imageUri':"null",
-      };
-
-      _sales.get().then((value) {
-        value.docs.map((doc) {
-          if(doc.get("imageUri") == slipUrl){
-            _sales.doc(doc.id).update(data);
-          }
-        }).toList();
-      });
-
-      _feedback['hasError'] = false;
-      _feedback['message'] = "Slip has been detached successfully.";
-
-      return _feedback;
-    }catch(e){
-      _feedback['hasError'] = true;
-      _feedback['message']  = e.toString().split(']')[1];
-      return _feedback;
-    }
-  }
-
   Future<dynamic> deleteSale(String saleID) async {
     try{
       await _sales.doc(saleID).delete();
@@ -503,19 +334,6 @@ class DatabaseService {
       var error = e.toString().split(']');
       _feedback['hasError'] = true;
       _feedback['message'] = error[1];
-      return _feedback;
-    }
-  }
-
-  Future<dynamic> deleteUser(String userUID) async {
-    try{
-      _users.doc(userUID).delete();
-      _feedback['hasError'] = false;
-      _feedback['message'] = "User has been deleted successfully.";
-      return _feedback;
-    }catch(e){
-      _feedback['hasError'] = true;
-      _feedback['message'] = "Database error occured while deleting user.";
       return _feedback;
     }
   }

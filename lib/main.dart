@@ -16,16 +16,16 @@ void main() async {
 
 class _VitalityHygieneProducts extends StatelessWidget {
   final AppColors _appColors = AppColors();
-  final String version = "1.0.0";
 
   @override
   Widget build(BuildContext context) {
     return StreamProvider<UserModel>.value(
       initialData: null,
+
       value: AuthService().user,
 
       child: MaterialApp(
-        home: Wrapper(version: version,),
+        home: Wrapper(),
 
         title: appTitle,
 

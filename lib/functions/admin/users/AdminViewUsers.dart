@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:vitality_hygiene_products/custom_widgets/CustomSnackBar.dart';
 import 'package:vitality_hygiene_products/custom_widgets/LoadingWidget.dart';
 import 'package:vitality_hygiene_products/custom_widgets/NoItemsFound.dart';
+import 'package:vitality_hygiene_products/functions/settings/EditProfile.dart';
+import 'package:vitality_hygiene_products/functions/settings/Password.dart';
 import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/services/DatabaseService.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
@@ -34,8 +37,7 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading?LoadingWidget("Changing user role..."):
-    StreamProvider<QuerySnapshot>.value(
+    return StreamProvider<QuerySnapshot>.value(
       initialData: null,
       value: widget._databaseService.getUsers,
       child: Builder(
@@ -43,15 +45,22 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
           final users = Provider.of<QuerySnapshot>(context);
 
           if(users == null){
-            return LoadingWidget("Loading, please wait...");
+            return LoadingWidget("Getting users...");
           }
 
           return Column(
             children: [
-              SizedBox(height: FormSpecs.sizedBoxHeight,),
               //Heading
-              Expanded(
-                flex: 1,
+              Container(
+                decoration: boxDecoration.copyWith(
+                  color: widget._appColors.getBoxColor()
+                ),
+                margin: EdgeInsets.all(
+                  FormSpecs.formMargin
+                ),
+                padding: EdgeInsets.all(
+                  titleBoxPadding,
+                ),
                 child: Center(
                   child: Text(
                     "View Users",
@@ -63,14 +72,17 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                 ),
               ),
 
-              SizedBox(height: FormSpecs.sizedBoxHeight,),
-
               //Searching box
               Container(
                 height: 160.0,
 
+                margin: EdgeInsets.only(
+                  left: FormSpecs.formMargin,
+                  bottom: FormSpecs.formMargin,
+                  right: FormSpecs.formMargin,
+                ),
                 padding: EdgeInsets.all(
-                  5.0
+                  titleBoxPadding
                 ),
 
                 decoration: boxDecoration.copyWith(
@@ -170,14 +182,6 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                                     //     "Role",
                                     //   ),
                                     // ),
-
-                                    // DropdownMenuItem(
-                                    //   value: "commissionRate(%)",
-                                    //
-                                    //   child: Text(
-                                    //     "Commission Rate",
-                                    //   ),
-                                    // ),
                                   ],
 
                                   onChanged: (val){
@@ -230,7 +234,6 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                 ),
               ),
 
-              SizedBox(height: FormSpecs.sizedBoxHeight,),
               //Users view
               Expanded(
                 flex: 11,
@@ -328,24 +331,38 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
 
                                     children: [
                                       Expanded(flex: 1, child: SizedBox(width: 0.0, height: 0.0,)),
-                                      //Editing button
-                                      // Expanded(
-                                      //   flex: 10,
-                                      //   child: ElevatedButton(
-                                      //     style: FormSpecs.btnStyle,
-                                      //     child: Text(
-                                      //       "Edit Profile",
-                                      //     ),
-                                      //
-                                      //     onPressed: (){
-                                      //       Navigator.push(context, MaterialPageRoute(
-                                      //           builder: (context) => EditProfile(uid: user.id, firstName: user.get("firstName"), middleName: user.get("middleName"),lastName: user.get("lastName"),address: user.get("address"),email: user.get("email"),phone: user.get("phone"),gender: user.get("gender"),)
-                                      //         ),
-                                      //       );
-                                      //     },
-                                      //   ),
-                                      // ),
 
+                                      //Editing button
+                                      Expanded(
+                                        flex: 10,
+                                        child: ElevatedButton(
+                                          style: FormSpecs.btnStyle,
+                                          child: Text(
+                                            "Edit Profile",
+                                          ),
+
+                                          onPressed: (){
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context) => EditProfile(
+                                                  uid: user.id,
+                                                  firstName: user.get("firstName"),
+                                                  middleName: user.get("middleName"),
+                                                  lastName: user.get("lastName"),
+                                                  address: user.get("address"),
+                                                  email: user.get("email"),
+                                                  phone: user.get("phone"),
+                                                  gender: user.get("gender"),
+                                                  roleId: user.get("roleID"),
+                                                )
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+
+                                      Expanded(flex: 1, child: SizedBox(width: 0.0, height: 0.0,)),
+
+                                      //Password
                                       Expanded(
                                         flex: 10,
 
@@ -357,73 +374,12 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                                           ),
 
                                           onPressed: (){
-                                            print("pwd");
-                                          },
-                                        ),
-                                      ),
-
-                                      Expanded(flex: 1, child: SizedBox(width: 0.0, height: 0.0,)),
-
-                                      Expanded(
-                                        flex: 10,
-                                        child: ElevatedButton(
-                                          style: FormSpecs.btnStyle,
-
-                                          child: Text(
-                                            "Delete",
-                                          ),
-
-                                          onPressed: () async {
-                                            bool hasConnection = await DataConnectionChecker().hasConnection;
-
-                                            if(hasConnection){
-                                              showDialog(
-                                                context: context,
-
-                                                builder: (context) => AlertDialog(
-                                                  title: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.warning,
-                                                        color: Colors.red,
-                                                      ),
-
-                                                      Text("Deleting User!"),
-                                                    ],
-                                                  ),
-
-                                                  content: Text(
-                                                      "You're about to delete a user, this user won't be able to login once removed. Continue?"
-                                                  ),
-
-                                                  actions: [
-                                                    TextButton(
-                                                      child: Text("No"),
-                                                      onPressed: (){
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-
-                                                    Scaffold(
-                                                      body: TextButton(
-                                                          child: Text("Yes"),
-                                                          onPressed: () async {
-                                                            Navigator.pop(context);
-
-                                                            _state = await widget._databaseService.deleteUser(user.id);
-                                                            SnackBar snackBar = CustomSnackBar(message: _state['message']).getSnackBar(context);
-                                                            Scaffold.of(context).showSnackBar(snackBar);
-                                                          }
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-
-                                            }else{
-                                              SnackBar snackBar = CustomSnackBar(message: "No internet connection.").getSnackBar(context);
-                                              Scaffold.of(context).showSnackBar(snackBar);
-                                            }
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Password(email: user.get("email"),),
+                                              )
+                                            );
                                           },
                                         ),
                                       ),
@@ -431,66 +387,72 @@ class _AdminViewUsersState extends State<AdminViewUsers> {
                                       Expanded(flex: 1, child: SizedBox(width: 0.0, height: 0.0,)),
 
                                       // Expanded(
-                                      //   child: StreamBuilder(
-                                      //     builder: (BuildContext ctx, AsyncSnapshot snapshot){
-                                      //       if(General.roles.docs.isEmpty){
-                                      //         return NoItemsFound("No roles.");
-                                      //       }
+                                      //   flex: 10,
+                                      //   child: ElevatedButton(
+                                      //     style: FormSpecs.btnStyle,
                                       //
-                                      //       return DropdownButtonFormField(
-                                      //         decoration: FormSpecs.textInputDecoration,
+                                      //     child: Text(
+                                      //       "Delete",
+                                      //     ),
                                       //
-                                      //         hint: Text(
-                                      //           "Change Role.",
-                                      //           style: TextStyle(
-                                      //             color: widget._appColors.getFontColor(),
-                                      //           ),
-                                      //         ),
+                                      //     onPressed: () async {
+                                      //       bool hasConnection = await DataConnectionChecker().hasConnection;
                                       //
-                                      //         value: _selectedRole,
+                                      //       if(hasConnection){
+                                      //         showDialog(
+                                      //           context: context,
                                       //
-                                      //         items: General.roles.docs.map((role) {
-                                      //           return DropdownMenuItem(
-                                      //             value: role.get("role"),
-                                      //             child: Text(
-                                      //               role.get("role"),
-                                      //               style: TextStyle(
-                                      //                 color: widget._appColors.getFontColor(),
-                                      //               ),
+                                      //           builder: (context) => AlertDialog(
+                                      //             title: Row(
+                                      //               children: [
+                                      //                 Icon(
+                                      //                   Icons.warning,
+                                      //                   color: Colors.red,
+                                      //                 ),
+                                      //
+                                      //                 Text("Deleting User!"),
+                                      //               ],
                                       //             ),
-                                      //           );
-                                      //         }).toList(),
                                       //
-                                      //         onChanged: (val) async {
-                                      //           SnackBar snackBar;
-                                      //           bool hasConnection = await DataConnectionChecker().hasConnection;
-                                      //           if(hasConnection){
-                                      //             _selectedRole = val;
+                                      //             content: Text(
+                                      //                 "You're about to delete a user, this user won't be able to login once removed. Continue?"
+                                      //             ),
                                       //
-                                      //             General.roles.docs.map((role) async {
-                                      //               if(role.get("role").toString() == _selectedRole){
-                                      //                 setState(() => _isLoading = true);
-                                      //                 _state = await widget._databaseService.updateUserRole(key.id, role.id);
-                                      //                 setState(() => _isLoading = false);
-                                      //               }
-                                      //             }).toList();
-                                      //             // snackBar = CustomSnackBar(_state['message']).getSnackBar(ctx);
-                                      //             //  setState(() => _isLoading = false);
-                                      //             // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                      //           }else{
-                                      //             snackBar = CustomSnackBar("No internet connection.").getSnackBar(context);
-                                      //             Scaffold.of(context).showSnackBar(snackBar);
-                                      //           }
-                                      //         },
-                                      //       );
+                                      //             actions: [
+                                      //               TextButton(
+                                      //                 child: Text("No"),
+                                      //                 onPressed: (){
+                                      //                   Navigator.pop(context);
+                                      //                 },
+                                      //               ),
+                                      //
+                                      //               TextButton(
+                                      //                   child: Text("Yes"),
+                                      //                   onPressed: () async {
+                                      //                     Navigator.pop(context);
+                                      //
+                                      //                     _state = await widget._databaseService.deleteUser(user.id);
+                                      //                     Fluttertoast.showToast(msg: _state['msg']);
+                                      //                   }
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //         );
+                                      //
+                                      //       }else{
+                                      //         SnackBar snackBar = CustomSnackBar(message: "No internet connection.").getSnackBar(context);
+                                      //         Scaffold.of(context).showSnackBar(snackBar);
+                                      //       }
                                       //     },
                                       //   ),
                                       // ),
+
+                                      //Expanded(flex: 1, child: SizedBox(width: 0.0, height: 0.0,)),
                                     ],
                                   ),
 
                                   Divider(
-                                    color: Colors.white,
+                                    color: widget._appColors.getBackgroundColor(),
                                   ),
                                 ],
                               );

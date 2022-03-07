@@ -40,7 +40,7 @@ class _PasswordState extends State<Password> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        leading: (widget.togglePassword == null)?null:IconButton(
           icon: Icon(
               Icons.arrow_back
           ),

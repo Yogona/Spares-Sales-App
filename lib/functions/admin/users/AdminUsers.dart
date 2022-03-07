@@ -3,6 +3,7 @@ import 'package:vitality_hygiene_products/custom_widgets/Options.dart';
 import 'package:vitality_hygiene_products/custom_widgets/drawers/AdminDrawer.dart';
 import 'package:vitality_hygiene_products/functions/admin/users/AdminViewUsers.dart';
 import 'package:vitality_hygiene_products/functions/settings/Password.dart';
+import 'package:vitality_hygiene_products/models/LoggedInUser.dart';
 import 'package:vitality_hygiene_products/models/UserModel.dart';
 import 'package:vitality_hygiene_products/shared/AppColors.dart';
 import 'package:vitality_hygiene_products/shared/Futures.dart';
@@ -52,7 +53,7 @@ class _AdminUsersState extends State<AdminUsers> {
     TaskSelection.selection['expenditures'] = false;
 
     if(TaskSelection.options['password']){
-      return Password(togglePassword: widget.togglePassword,);
+      return Password(email: LoggedInUser.getEmail(), togglePassword: widget.togglePassword,);
     }
 
     return WillPopScope(

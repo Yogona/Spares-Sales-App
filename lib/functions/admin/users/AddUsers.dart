@@ -54,39 +54,7 @@ class _AddUsersState extends State<AddUsers> {
 
     return _loading?LoadingWidget("Creating user..."):
        Column(
-         crossAxisAlignment: CrossAxisAlignment.center,
-
          children: [
-           //Top space
-           SizedBox(height: FormSpecs.sizedBoxHeight,),
-           //Heading
-           Expanded(
-             flex: 1,
-             child: Container(
-               margin: EdgeInsets.only(
-                 left: FormSpecs.formMargin,
-                 right: FormSpecs.formMargin,
-               ),
-               padding: EdgeInsets.all(
-                   1.0
-               ),
-               decoration: boxDecoration.copyWith(
-                 color: _appColors.getBoxColor(),
-               ),
-               child: Center(
-                 child: Text(
-                   "Add User",
-                     style: TextStyle(
-                       color: _appColors.getFontColor(),
-                       fontSize: FormSpecs.formHeaderSize,
-                     ),
-                 ),
-               ),
-             ),
-           ),
-           //Separation space
-           SizedBox(height: FormSpecs.sizedBoxHeight,),
-
            Expanded(
              flex: 20,
              child: Row(
@@ -605,8 +573,6 @@ class _AddUsersState extends State<AddUsers> {
                ],
              ),
            ),
-
-           Expanded(flex:1,child: SizedBox(height:0.0,width:0.0)),
          ],
        );
   }

@@ -1,4 +1,4 @@
-# vitality_hygiene_products
+# SPARES SALES APP
 
 Purchases, sales and expenditures management system for Vitality Hygiene Products Co, Ltd.
 
